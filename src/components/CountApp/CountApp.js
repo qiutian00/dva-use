@@ -25,7 +25,6 @@ let CountApp = ({ count, dispatch }) => {
 
 function mapStateToProps(state) {
   return { count: state.count };
-  // return { current: 1, record: 1 };
 }
 
 CountApp = connect(mapStateToProps)(CountApp);
