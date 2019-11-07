@@ -3,6 +3,7 @@ import { connect } from "dva";
 
 import $ from "jquery";
 import "popper.js";
+// bootstrap need porper.js and jquery
 import "bootstrap";
 
 // 使用className
@@ -15,11 +16,9 @@ let CURD = ({ currentProfile, dispatch }) => {
     <div class="container">
       <div class="row">
         <div class="col-md-6 mx-auto text-center">
-          <h1 class="mb-3">
-            CURD,总共 {currentProfile.total},当前第{++currentProfile.index}个
-          </h1>
+          <h1 class="mb-3">CURD</h1>
           <div id="imageDisplay">
-            <img src={currentProfile.image} />
+            {/* <img src={currentProfile.image} /> */}
           </div>
           <br />
           <div id="profileDisplay">
@@ -28,6 +27,9 @@ let CURD = ({ currentProfile, dispatch }) => {
               <li class="list-group-item">年龄: {currentProfile.age}</li>
               <li class="list-group-item">位置: {currentProfile.location}</li>
               <li class="list-group-item">描述: {currentProfile.desc}</li>
+              <li class="list-group-item">
+                总共 {currentProfile.total}个,当前第{++currentProfile.index}个
+              </li>
             </ul>
           </div>
           <br />
