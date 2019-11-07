@@ -145,8 +145,10 @@ class CURD extends React.Component {
               title={type === "add" ? "添加信息" : "修改信息"}
               visible={visible}
               onOk={this.handleOk}
+              okText="确定"
               confirmLoading={confirmLoading}
               onCancel={this.handleCancel}
+              cancelText="取消"
             >
               <Detail
                 type={type}
