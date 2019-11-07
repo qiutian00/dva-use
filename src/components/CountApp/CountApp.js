@@ -4,6 +4,7 @@ import { connect } from "dva";
 
 // passes in two props，count and dispatch
 let CountApp = ({ count, dispatch }) => {
+  console.log("count:" + count);
   return (
     <div className={styles.normal}>
       <div className={styles.record}>
