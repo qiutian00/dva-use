@@ -40,16 +40,42 @@ export default {
     *next(action, { call, put }) {
       // yield call(delay, 1000);
       yield put({ type: "nextProfile" });
+    },
+    *add(action, { call, put }) {
+      const { payload, callback } = action;
+      // console.log("payload:" + JSON.stringify(payload));
+      yield put({ type: "addSaveProfile", response: payload });
+      // yield call(delay, 1000);
+      let response = { status: "200" };
+      callback ? callback(response) : "";
+    },
+    *edit(action, { call, put }) {
+      const { payload, callback } = action;
+      yield put({ type: "editSaveProfile", response: payload });
+      // yield call(delay, 1000);
+      let response = { status: "200" };
+      callback ? callback(response) : "";
     }
   },
 
   reducers: {
-    nextProfile(state) {
+    nextProfile(state, action) {
       let index = ++state.index;
       console.log(index < state.data.length - 1);
       index < state.data.length ? "" : (index = 0);
       console.log(state, index);
       return { ...state, index: index };
+    },
+    addSaveProfile(state, action) {
+      const { response } = action;
+      // console.log("response:" + JSON.stringify(response));
+      state.data.push(response);
+      return { ...state };
+    },
+    editSaveProfile(state, action) {
+      const { response } = action;
+      state.data[state.index] = response;
+      return { ...state };
     }
   }
 };

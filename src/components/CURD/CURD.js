@@ -6,7 +6,7 @@ import "popper.js";
 // bootstrap need porper.js and jquery
 import "bootstrap";
 
-import { Modal, Button } from "antd";
+import { Modal, Button, message } from "antd";
 import Detail from "./Detail";
 
 // 使用className
@@ -35,16 +35,50 @@ class CURD extends React.Component {
   };
 
   handleOk = () => {
-    this.setState({
-      ModalText: "The modal will be closed after two seconds",
-      confirmLoading: true
+    // this.setState({
+    //   ModalText: "The modal will be closed after two seconds",
+    //   confirmLoading: true
+    // });
+
+    // setTimeout(() => {
+    //   this.setState({
+    //     visible: false,
+    //     confirmLoading: false
+    //   });
+    // }, 2000);
+
+    // 进行处理
+    // console.log(this.Detail);
+    const { dispatch } = this.props;
+    let detailForm = this.Detail.props.form;
+    detailForm.validateFields((errors, values) => {
+      if (!errors) {
+        let formData = detailForm.getFieldsValue();
+        if (!formData.name) {
+          formData.name = "test";
+        }
+        if (!formData.image) {
+          formData.image = "https://randomuser.me/api/portraits/men/78.jpg";
+        }
+        dispatch({
+          type: `currentProfile/${this.state.type}`,
+          payload: formData,
+          callback: response => {
+            if (response.status === "200") {
+              message.success("成功");
+              this.setState({
+                visible: false,
+                confirmLoading: false
+              });
+            } else {
+              message.error(response.error || "操作失败");
+            }
+          }
+        });
+      } else {
+        // 表单校验不通过
+      }
     });
-    setTimeout(() => {
-      this.setState({
-        visible: false,
-        confirmLoading: false
-      });
-    }, 2000);
   };
 
   handleCancel = () => {
@@ -52,6 +86,10 @@ class CURD extends React.Component {
     this.setState({
       visible: false
     });
+  };
+
+  onRef = ref => {
+    this.Detail = ref;
   };
 
   render() {
@@ -114,6 +152,7 @@ class CURD extends React.Component {
                 type={type}
                 currentData={currentProfile}
                 ModalText={ModalText}
+                onRef={this.onRef}
               />
             </Modal>
           </div>

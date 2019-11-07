@@ -4,6 +4,10 @@ import { Form, Select, Input, Button } from "antd";
 const { Option } = Select;
 
 class Detail extends React.Component {
+  componentWillMount() {
+    this.props.onRef(this);
+  }
+
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -41,7 +45,7 @@ class Detail extends React.Component {
               }
             ],
             initialValue: currentData.name
-          })(<Input />)}
+          })(<Input placeholder="Please input your name!" />)}
         </Form.Item>
         <Form.Item label="性别">
           {getFieldDecorator("gender", {
@@ -49,28 +53,38 @@ class Detail extends React.Component {
             initialValue: currentData.gender
           })(
             <Select placeholder="请选择姓名" onChange={this.handleSelectChange}>
-              <Option value="男">male</Option>
-              <Option value="女">female</Option>
+              <Option value="男">男</Option>
+              <Option value="女">女</Option>
             </Select>
           )}
         </Form.Item>
         <Form.Item label="年龄">
           {getFieldDecorator("age", {
-            rules: [{ required: true, message: "Please input your age!" }],
+            rules: [
+              {
+                required: true,
+                message: "Please input your age!"
+              }
+            ],
             initialValue: currentData.age
-          })(<Input />)}
+          })(<Input placeholder="Please input your age!" />)}
         </Form.Item>
         <Form.Item label="地址">
           {getFieldDecorator("location", {
             rules: [{ message: "Please input your location!" }],
             initialValue: currentData.location
-          })(<Input />)}
+          })(<Input placeholder="Please input your location!" />)}
         </Form.Item>
         <Form.Item label="描述">
           {getFieldDecorator("desc", {
             rules: [{ message: "Please input your desc!" }],
             initialValue: currentData.desc
-          })(<Input />)}
+          })(<Input placeholder="Please input your desc!" />)}
+        </Form.Item>
+        <Form.Item>
+          <Button style={{ display: "none" }} type="primary">
+            Submit
+          </Button>
         </Form.Item>
       </Form>
     );
