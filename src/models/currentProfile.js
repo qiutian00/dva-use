@@ -2,6 +2,8 @@ export default {
   namespace: "currentProfile",
   state: {
     index: 0,
+    visible: false,
+    formVals: {},
     data: [
       {
         name: "米斯特吴",
