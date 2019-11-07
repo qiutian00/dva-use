@@ -11,3 +11,6 @@
 npm-debug.log*
 
 .package-lock.json
+
+# temp file
+.mock-temp

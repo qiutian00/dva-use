@@ -88,6 +88,12 @@ class CURD extends React.Component {
     });
   };
 
+  testMock = () => {
+    const { dispatch } = this.props;
+    console.log("test mock clicked");
+    dispatch({ type: "currentProfile/testMock" });
+  };
+
   onRef = ref => {
     this.Detail = ref;
   };
@@ -128,18 +134,24 @@ class CURD extends React.Component {
               下一个
             </button>
             <button
-              id="next"
+              id="add"
               class="btn btn-info btn-block"
               onClick={this.showModal.bind(this, "add")}
             >
               新增
             </button>
             <button
-              id="next"
+              id="edit"
               class="btn btn-success btn-block"
               onClick={this.showModal.bind(this, "edit")}
             >
               修改
+            </button>
+            <button
+              class="btn btn-dark btn-block"
+              onClick={this.testMock.bind(this)}
+            >
+              testMock
             </button>
             <Modal
               title={type === "add" ? "添加信息" : "修改信息"}

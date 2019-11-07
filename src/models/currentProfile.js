@@ -1,3 +1,5 @@
+import { queryTableData } from "../services/userInfo";
+
 export default {
   namespace: "currentProfile",
   state: {
@@ -55,6 +57,13 @@ export default {
       // yield call(delay, 1000);
       let response = { status: "200" };
       callback ? callback(response) : "";
+    },
+    *testMock(action, { call, put }) {
+      const { payload, callback } = action;
+      let res = yield call(queryTableData, 0);
+      console.log("get mock res:" + JSON.stringify(res));
+      // yield put({ type: "editSaveProfile", response: payload });
+      // callback ? callback(response) : "";
     }
   },
 
