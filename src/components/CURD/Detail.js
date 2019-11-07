@@ -22,7 +22,10 @@ class Detail extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { ModalText, currentData, type } = this.props;
+    let { ModalText, currentData, type } = this.props;
+
+    type == "add" ? (currentData = {}) : "";
+    // console.log("currentData name:" + currentData.name);
     return (
       <Form
         labelCol={{ span: 5 }}
@@ -31,12 +34,19 @@ class Detail extends React.Component {
       >
         <Form.Item label="姓名">
           {getFieldDecorator("name", {
-            rules: [{ required: true, message: "Please input your name!" }]
+            rules: [
+              {
+                required: true,
+                message: "Please input your name!"
+              }
+            ],
+            initialValue: currentData.name
           })(<Input />)}
         </Form.Item>
         <Form.Item label="性别">
           {getFieldDecorator("gender", {
-            rules: [{ required: true, message: "Please select your gender!" }]
+            rules: [{ required: true, message: "Please select your gender!" }],
+            initialValue: currentData.gender
           })(
             <Select placeholder="请选择姓名" onChange={this.handleSelectChange}>
               <Option value="男">male</Option>
@@ -46,17 +56,20 @@ class Detail extends React.Component {
         </Form.Item>
         <Form.Item label="年龄">
           {getFieldDecorator("age", {
-            rules: [{ required: true, message: "Please input your age!" }]
+            rules: [{ required: true, message: "Please input your age!" }],
+            initialValue: currentData.age
           })(<Input />)}
         </Form.Item>
         <Form.Item label="地址">
           {getFieldDecorator("location", {
-            rules: [{ message: "Please input your location!" }]
+            rules: [{ message: "Please input your location!" }],
+            initialValue: currentData.location
           })(<Input />)}
         </Form.Item>
         <Form.Item label="描述">
           {getFieldDecorator("desc", {
-            rules: [{ message: "Please input your desc!" }]
+            rules: [{ message: "Please input your desc!" }],
+            initialValue: currentData.desc
           })(<Input />)}
         </Form.Item>
       </Form>

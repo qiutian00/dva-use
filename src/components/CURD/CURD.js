@@ -75,7 +75,7 @@ class CURD extends React.Component {
                 <li class="list-group-item">位置: {currentProfile.location}</li>
                 <li class="list-group-item">描述: {currentProfile.desc}</li>
                 <li class="list-group-item">
-                  总共 {currentProfile.total}个,当前第{++currentProfile.index}个
+                  总共 {currentProfile.total}个,当前第{currentProfile.index}个
                 </li>
               </ul>
             </div>
@@ -104,7 +104,7 @@ class CURD extends React.Component {
               修改
             </button>
             <Modal
-              title={ type === 'add' ? '添加信息' : '修改信息'}
+              title={type === "add" ? "添加信息" : "修改信息"}
               visible={visible}
               onOk={this.handleOk}
               confirmLoading={confirmLoading}
@@ -130,7 +130,7 @@ function mapStateToProps(state) {
   return {
     currentProfile: {
       ...state.currentProfile.data[state.currentProfile.index],
-      index: state.currentProfile.index,
+      index: state.currentProfile.index + 1,
       total: state.currentProfile.data.length
     }
   };
