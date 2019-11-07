@@ -5,6 +5,7 @@ import $ from "jquery";
 import "popper.js";
 import "bootstrap";
 
+// 使用className
 import "bootstrap/dist/css/bootstrap.min.css";
 
 // passes in two props，currentProfile and dispatch
@@ -14,7 +15,9 @@ let CURD = ({ currentProfile, dispatch }) => {
     <div class="container">
       <div class="row">
         <div class="col-md-6 mx-auto text-center">
-          <h1 class="mb-3">CURD used</h1>
+          <h1 class="mb-3">
+            CURD,总共 {currentProfile.total},当前第{++currentProfile.index}个
+          </h1>
           <div id="imageDisplay">
             <img src={currentProfile.image} />
           </div>
@@ -31,7 +34,9 @@ let CURD = ({ currentProfile, dispatch }) => {
           <button
             id="next"
             class="btn btn-secondary btn-block"
-            onClick={nextProfile}
+            onClick={() => {
+              dispatch({ type: "currentProfile/next" });
+            }}
           >
             下一个
           </button>
@@ -47,45 +52,18 @@ let CURD = ({ currentProfile, dispatch }) => {
   );
 };
 
-let data = [];
-
-function* profileIterator() {
-  yield data[0];
-  yield data[1];
-  yield data[2];
-}
-
-function nextProfile() {
-  console.log("data value:" + data);
-  const currentProfile = profiles.next().value;
-
-  // 重新渲染的，操作
-  // if (currentProfile !== undefined) {
-  //   document.getElementById("profileDisplay").innerHTML = `
-  //     <ul class="list-group">
-  //       <li class="list-group-item">姓名: ${currentProfile.name}</li>
-  //       <li class="list-group-item">年龄: ${currentProfile.age}</li>
-  //       <li class="list-group-item">位置: ${currentProfile.location}</li>
-  //       <li class="list-group-item">描述: ${currentProfile.gender} 特点: ${currentProfile.lookingfor}性朋友</li>
-  //     </ul>
-  //   `;
-  //   document.getElementById("imageDisplay").innerHTML = `
-  //   <img src="${currentProfile.image}"/>
-  // `;
-  // } else {
-  //   // 回到第一个
-  //   window.location.reload();
-  // }
-}
-
-let profiles;
+// 纯组件思想
 
 function mapStateToProps(state) {
-  data = state.currentProfile;
-  profiles = profileIterator(data);
   console.log("mapStateToProps");
   // console.log("state value:" + JSON.stringify(state.currentProfile[0]));
-  return { currentProfile: state.currentProfile[0] };
+  return {
+    currentProfile: {
+      ...state.currentProfile.data[state.currentProfile.index],
+      index: state.currentProfile.index,
+      total: state.currentProfile.data.length
+    }
+  };
 }
 
 CURD = connect(mapStateToProps)(CURD);

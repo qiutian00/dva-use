@@ -49,6 +49,7 @@ export default {
   // 2. call and put are effect commands from redux-saga. call is for async logic, and put is for dispatching actions. Besides, there are commands like select, take, fork, cancel, and so on. View more on redux-saga documatation
   effects: {
     *add(action, { call, put }) {
+      // call 用于异步操作，put用户reducers去更新state
       yield call(delay, 1000);
       yield put({ type: "minus" });
     }
