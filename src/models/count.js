@@ -1,4 +1,4 @@
-// namespace state subscriptions effects  reducers
+// contains: namespace state subscriptions effects  reducers
 
 // app.model({
 //   namespace: "count",
