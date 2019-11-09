@@ -11,7 +11,7 @@ export async function queryTableData(params) {
     method: "GET"
   });
 
-  // this used i modal
+  // this used i modal, 最普通的call使用
   //   yield call(request,'/api/users',{
   //     body:JSON.stringify(user),
   //     method:'POST'
